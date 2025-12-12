@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsere Trainer | NenoDance Academy</title>
+    <link rel="icon" type="image/avif" href="img/logo.avif">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300;400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Teko', 'sans-serif'],
+                    },
+                    colors: {
+                        neno: {
+                            purple: '#A855F7',
+                            blue: '#3B82F6',
+                            pink: '#EC4899',
+                            dark: '#0A0A0A',
+                            surface: '#FFFFFF'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F8FAFC;
+            color: #111827;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F8FAFC;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #A855F7;
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .slide-in-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .slide-in-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .scale-in.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden selection:bg-purple-500 selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 left-0 bg-white/80 backdrop-blur-md border-b border-gray-200">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="img/logo.avif" alt="NenoDance Academy" class="h-12 md:h-16">
+            </a>
+
+            <div class="hidden md:flex items-center gap-8 font-display text-xl tracking-wide uppercase text-gray-800">
+                <a href="index.html#home" class="hover:text-purple-600 transition-colors">Start</a>
+                <a href="index.html#schedule" class="hover:text-purple-600 transition-colors">Kursplan</a>
+                <a href="kurse.html" class="hover:text-purple-600 transition-colors">Kurse</a>
+                <a href="index.html#preise" class="hover:text-purple-600 transition-colors">Preise</a>
+                <a href="trainer.html" class="text-purple-600">Team</a>
+                <a href="kontakt.html" class="bg-black text-white px-6 py-1 hover:bg-purple-600 transition-all transform skew-x-[-10deg] font-bold shadow-lg">
+                    <span class="inline-block skew-x-[10deg]">Probetraining</span>
+                </a>
+            </div>
+
+            <button id="mobile-menu-toggle" class="md:hidden text-black hover:text-purple-600">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden fixed top-0 right-0 w-screen h-screen shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50" style="background-color: #ffffff;">
+            <!-- Close Button -->
+            <button id="mobile-menu-close" class="absolute top-6 right-6 text-black hover:text-purple-600 transition-colors">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+
+            <div class="flex flex-col p-8 pt-24 space-y-6 font-display text-2xl tracking-wide uppercase text-gray-800 bg-white">
+                <a href="index.html#home" class="hover:text-purple-600 transition-colors py-3 border-b border-gray-200">Start</a>
+                <a href="index.html#schedule" class="hover:text-purple-600 transition-colors py-3 border-b border-gray-200">Kursplan</a>
+                <a href="kurse.html" class="hover:text-purple-600 transition-colors py-3 border-b border-gray-200">Kurse</a>
+                <a href="index.html#preise" class="hover:text-purple-600 transition-colors py-3 border-b border-gray-200">Preise</a>
+                <a href="trainer.html" class="hover:text-purple-600 transition-colors py-3 border-b border-gray-200">Team</a>
+                <a href="kontakt.html" class="bg-black text-white px-6 py-4 hover:bg-purple-600 transition-all text-center mt-4">
+                    Probetraining
+                </a>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu-overlay" class="hidden md:hidden fixed inset-0 bg-black/50 z-40"></div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 bg-gradient-to-b from-gray-50 to-white">
+        <div class="container mx-auto px-8 text-center fade-in">
+            <h1 class="text-6xl md:text-8xl font-display font-bold italic mb-6 text-black overflow-visible">
+                UNSERE <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600">TRAINER</span>
+            </h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Lerne die leidenschaftlichen Menschen kennen, die dich auf deiner Tanzreise begleiten
+            </p>
+        </div>
+    </section>
+
+    <!-- Trainer Grid -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Jenny -->
+                <div class="group relative overflow-hidden rounded-lg shadow-xl hover:shadow-2xl transition-all scale-in">
+                    <div class="aspect-[3/4] relative">
+                        <img src="img/jenny.avif" alt="Jenny" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                        <h3 class="text-4xl font-display font-bold italic uppercase mb-3">JENNY</h3>
+                        <div class="space-y-1 text-sm uppercase tracking-wider opacity-90">
+                            <p>• Minis</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Neno -->
+                <div class="group relative overflow-hidden rounded-lg shadow-xl hover:shadow-2xl transition-all scale-in">
+                    <div class="aspect-[3/4] relative">
+                        <img src="img/neno.avif" alt="Neno" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                        <h3 class="text-4xl font-display font-bold italic uppercase mb-3">NENO</h3>
+                        <div class="space-y-1 text-sm uppercase tracking-wider opacity-90">
+                            <p>• Hip-Hop Kids</p>
+                            <p>• Hip-Hop Teens</p>
+                            <p>• Freestyle</p>
+                            <p>• Ü30</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Caro -->
+                <div class="group relative overflow-hidden rounded-lg shadow-xl hover:shadow-2xl transition-all scale-in">
+                    <div class="aspect-[3/4] relative">
+                        <img src="img/caro.avif" alt="Caro" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                        <h3 class="text-4xl font-display font-bold italic uppercase mb-3">CARO</h3>
+                        <div class="space-y-1 text-sm uppercase tracking-wider opacity-90">
+                            <p>• Jazz Funk</p>
+                            <p>• Feminine Hip-Hop</p>
+                            <p>• Heels</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tuan -->
+                <div class="group relative overflow-hidden rounded-lg shadow-xl hover:shadow-2xl transition-all scale-in">
+                    <div class="aspect-[3/4] relative">
+                        <img src="img/tuan.avif" alt="Tuan" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                        <h3 class="text-4xl font-display font-bold italic uppercase mb-3">TUAN</h3>
+                        <div class="space-y-1 text-sm uppercase tracking-wider opacity-90">
+                            <p>• Breaking</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ally -->
+                <div class="group relative overflow-hidden rounded-lg shadow-xl hover:shadow-2xl transition-all scale-in">
+                    <div class="aspect-[3/4] relative">
+                        <img src="img/ally.avif" alt="Ally" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                        <h3 class="text-4xl font-display font-bold italic uppercase mb-3">ALLY</h3>
+                        <div class="space-y-1 text-sm uppercase tracking-wider opacity-90">
+                            <p>• Afro Styles</p>
+                            <p>• Hip-Hop Adults</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mirela -->
+                <div class="group relative overflow-hidden rounded-lg shadow-xl hover:shadow-2xl transition-all scale-in">
+                    <div class="aspect-[3/4] relative">
+                        <img src="img/mirela.avif" alt="Mirela" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                        <h3 class="text-4xl font-display font-bold italic uppercase mb-3">MIRELA</h3>
+                        <div class="space-y-1 text-sm uppercase tracking-wider opacity-90">
+                            <p>• Feminine Hip-Hop</p>
+                            <p>• TikTok Tänze</p>
+                            <p>• Hip-Hop Kids</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-br from-purple-600 via-pink-600 to-blue-600">
+        <div class="container mx-auto px-6 text-center fade-in">
+            <h2 class="text-4xl md:text-6xl font-display font-bold italic text-white mb-6">
+                BEREIT LOSZULEGEN?
+            </h2>
+            <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+                Komm zu einem kostenlosen Probetraining und lerne unser Team persönlich kennen!
+            </p>
+            <a href="kontakt.html" class="inline-block px-10 py-4 bg-white text-purple-600 font-display text-xl uppercase tracking-wider hover:bg-black hover:text-white transition-all transform hover:scale-105 shadow-xl">
+                Jetzt Probetraining buchen
+            </a>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-6">
+                <div class="text-center md:text-left">
+                    <a href="index.html" class="inline-block mb-4">
+                        <img src="img/logo.avif" alt="NenoDance Academy" class="h-16">
+                    </a>
+                    <p class="text-gray-500 text-sm">© 2025 NenoDance Academy. Stay Urban.</p>
+                </div>
+
+                <div class="flex gap-4">
+                    <a href="https://www.instagram.com/nenodance" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-purple-600 hover:text-white transition-colors text-gray-600">
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@nenodancefam" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-pink-600 hover:text-white transition-colors text-gray-600">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+                    </a>
+                    <a href="https://www.facebook.com/NenoDanceOfficial/?locale=de_DE" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-blue-600 hover:text-white transition-colors text-gray-600">
+                        <i data-lucide="facebook" class="w-5 h-5"></i>
+                    </a>
+                    <a href="mailto:info@nenodance.de" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-black hover:text-white transition-colors text-gray-600">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="text-center border-t border-gray-200 pt-6">
+                <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-600">
+                    <a href="impressum.html" class="hover:text-purple-600 transition-colors">Impressum</a>
+                    <span class="text-gray-300">|</span>
+                    <a href="datenschutz.html" class="hover:text-purple-600 transition-colors">Datenschutz</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+
+            // Mobile Menu Toggle
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+            const mobileMenuClose = document.getElementById('mobile-menu-close');
+
+            function closeMobileMenu() {
+                if (mobileMenu && mobileMenuOverlay) {
+                    mobileMenu.classList.add('translate-x-full');
+                    mobileMenuOverlay.classList.add('hidden');
+                }
+            }
+
+            if (mobileMenuToggle && mobileMenu && mobileMenuOverlay) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    mobileMenu.classList.remove('translate-x-full');
+                    mobileMenuOverlay.classList.remove('hidden');
+                });
+
+                // Close mobile menu when clicking on close button
+                if (mobileMenuClose) {
+                    mobileMenuClose.addEventListener('click', closeMobileMenu);
+                }
+
+                // Close mobile menu when clicking on overlay
+                mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+
+                // Close mobile menu when clicking on a link
+                const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+                mobileMenuLinks.forEach(link => {
+                    link.addEventListener('click', closeMobileMenu);
+                });
+            }
+
+            // Scroll Animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all animated elements
+            document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

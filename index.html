@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NenoDance Academy | Urban Dance School</title>
+    <link rel="icon" type="image/avif" href="img/logo.avif">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Updated Lucide CDN to a more reliable UMD build -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300;400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Teko', 'sans-serif'],
+                    },
+                    colors: {
+                        neno: {
+                            purple: '#A855F7',
+                            blue: '#3B82F6',
+                            pink: '#EC4899',
+                            dark: '#0A0A0A',
+                            surface: '#FFFFFF'
+                        }
+                    },
+                    animation: {
+                        'marquee': 'marquee 25s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="overflow-x-hidden selection:bg-purple-500 selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 left-0 bg-white/80 backdrop-blur-md border-b border-gray-200">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="flex items-center">
+                <img src="img/logo.avif" alt="NenoDance Academy" class="h-12 md:h-16">
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8 font-display text-xl tracking-wide uppercase text-gray-800">
+                <a href="#home" class="hover:text-purple-600 transition-colors">Start</a>
+                <a href="#schedule" class="hover:text-purple-600 transition-colors">Kursplan</a>
+                <a href="kurse.html" class="hover:text-purple-600 transition-colors">Kurse</a>
+                <a href="#preise" class="hover:text-purple-600 transition-colors">Preise</a>
+                <a href="trainer.html" class="hover:text-purple-600 transition-colors">Team</a>
+                <a href="kontakt.html" class="bg-black text-white px-6 py-1 hover:bg-purple-600 transition-all transform skew-x-[-10deg] font-bold shadow-lg">
+                    <span class="inline-block skew-x-[10deg]">Probetraining</span>
+                </a>
+            </div>
+
+            <button id="mobile-menu-toggle" class="md:hidden text-black hover:text-purple-600">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden fixed top-0 right-0 w-screen h-screen shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50" style="background-color: #ffffff;">
+            <!-- Close Button -->
+            <button id="mobile-menu-close" class="absolute top-6 right-6 text-black hover:text-purple-600 transition-colors">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+
+            <div class="flex flex-col p-8 pt-24 space-y-6 font-display text-2xl tracking-wide uppercase text-gray-800 bg-white">
+                <a href="#home" class="hover:text-purple-600 transition-colors py-3 border-b border-gray-200">Start</a>
+                <a href="#schedule" class="hover:text-purple-600 transition-colors py-3 border-b border-gray-200">Kursplan</a>
+                <a href="kurse.html" class="hover:text-purple-600 transition-colors py-3 border-b border-gray-200">Kurse</a>
+                <a href="#preise" class="hover:text-purple-600 transition-colors py-3 border-b border-gray-200">Preise</a>
+                <a href="trainer.html" class="hover:text-purple-600 transition-colors py-3 border-b border-gray-200">Team</a>
+                <a href="kontakt.html" class="bg-black text-white px-6 py-4 hover:bg-purple-600 transition-all text-center mt-4">
+                    Probetraining
+                </a>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu-overlay" class="hidden md:hidden fixed inset-0 bg-black/50 z-40"></div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-white">
+        <!-- Video Background -->
+        <div class="absolute inset-0 overflow-hidden">
+            <video id="hero-video" autoplay loop muted playsinline preload="metadata" class="w-full h-full object-cover">
+                <source src="img/hero.mp4#t=0.001" type="video/mp4">
+            </video>
+            <script>
+                // Start video from 13 seconds and ensure endless loop
+                (function() {
+                    const video = document.getElementById('hero-video');
+                    if (video) {
+                        // Force video to be ready to play
+                        video.load();
+
+                        // Set start time and play when metadata is loaded
+                        video.addEventListener('loadedmetadata', function() {
+                            video.currentTime = 13;
+                        });
+
+                        // Try to play when enough data is loaded
+                        video.addEventListener('canplay', function() {
+                            if (video.currentTime < 13) {
+                                video.currentTime = 13;
+                            }
+                            video.play().catch(function(error) {
+                                console.log('Autoplay prevented:', error);
+                            });
+                        });
+
+                        // Ensure endless loop - restart from second 13 when video ends
+                        video.addEventListener('ended', function() {
+                            video.currentTime = 13;
+                            video.play();
+                        });
+
+                        // Safari fallback: try to start on any user interaction
+                        document.addEventListener('click', function startVideo() {
+                            if (video.paused) {
+                                video.currentTime = 13;
+                                video.play().catch(function() {});
+                            }
+                            document.removeEventListener('click', startVideo);
+                        }, { once: true });
+                    }
+                })();
+            </script>
+            <!-- Subtle dark overlay -->
+            <div class="absolute inset-0 bg-black/40"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+            <h1 class="text-6xl md:text-8xl lg:text-9xl font-display font-bold italic mb-6 text-white leading-tight">
+                WILLKOMMEN BEI<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400">NENODANCE</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto font-light">
+                Deine Urban Dance Academy in Heinsberg – Mehr als nur Tanzen, eine Bewegung!
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+                <a href="#schedule" class="px-10 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-display text-xl uppercase tracking-wider hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 shadow-2xl">
+                    Kursplan ansehen
+                </a>
+                <a href="kontakt.html" class="px-10 py-4 bg-white text-black font-display text-xl uppercase tracking-wider hover:bg-black hover:text-white transition-all transform hover:scale-105 shadow-2xl">
+                    Probetraining buchen
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Hint -->
+        <a href="#schedule" class="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center gap-2 text-white animate-bounce cursor-pointer group">
+            <span class="text-sm font-display uppercase tracking-wider opacity-80 group-hover:opacity-100 transition-opacity">Scroll</span>
+            <svg class="w-6 h-6 opacity-80 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </a>
+    </section>
+
+    <!-- Marquee -->
+    <div class="bg-white border-y border-gray-200 py-6 overflow-hidden relative z-20">
+        <div class="flex animate-marquee whitespace-nowrap">
+            <div class="flex gap-12 text-5xl md:text-7xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 uppercase italic opacity-60">
+                <span>Hip Hop</span> <span>•</span> <span>Breaking</span> <span>•</span> <span>Heels</span> <span>•</span> <span>Afro</span> <span>•</span> <span>Jazz Funk</span> <span>•</span> <span>TikTok</span> <span>•</span> <span>Freestyle</span> <span>•</span>
+            </div>
+            <div class="flex gap-12 text-5xl md:text-7xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 uppercase italic opacity-60 ml-12">
+                <span>Hip Hop</span> <span>•</span> <span>Breaking</span> <span>•</span> <span>Heels</span> <span>•</span> <span>Afro</span> <span>•</span> <span>Jazz Funk</span> <span>•</span> <span>TikTok</span> <span>•</span> <span>Freestyle</span> <span>•</span>
+            </div>
+            <div class="flex gap-12 text-5xl md:text-7xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-pink-400 uppercase italic opacity-60 ml-12">
+                <span>Hip Hop</span> <span>•</span> <span>Breaking</span> <span>•</span> <span>Heels</span> <span>•</span> <span>Afro</span> <span>•</span> <span>Jazz Funk</span> <span>•</span> <span>TikTok</span> <span>•</span> <span>Freestyle</span> <span>•</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schedule Section (Interactive) -->
+    <section id="schedule" class="py-24 bg-gray-100 relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <!-- Header with Background Text -->
+            <div class="relative text-center mb-16 fade-in">
+                <h2 class="text-[80px] md:text-[200px] font-display font-bold text-gray-300 opacity-30 select-none leading-none">KURSPLAN</h2>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <img src="img/logo.avif" alt="NenoDance" class="h-16 md:h-24">
+                </div>
+            </div>
+
+            <!-- Hinweis dass Kurse klickbar sind -->
+            <div class="text-center mb-8 fade-in">
+                <p class="text-gray-600 text-sm flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path>
+                    </svg>
+                    Klicke auf einen Kurs für mehr Infos
+                </p>
+            </div>
+
+            <!-- Desktop: Table View (5 columns) -->
+            <div class="hidden lg:grid lg:grid-cols-5 gap-4 bg-gray-100">
+                <!-- Montag Column -->
+                <div class="bg-white border-r border-gray-200">
+                    <h3 class="text-center font-display font-bold text-xl py-4 bg-gray-50">MONTAG</h3>
+                    <div id="montag-desktop" class="p-4 space-y-4">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+                <!-- Dienstag Column -->
+                <div class="bg-white border-r border-gray-200">
+                    <h3 class="text-center font-display font-bold text-xl py-4 bg-gray-50">DIENSTAG</h3>
+                    <div id="dienstag-desktop" class="p-4 space-y-4">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+                <!-- Mittwoch Column -->
+                <div class="bg-white border-r border-gray-200">
+                    <h3 class="text-center font-display font-bold text-xl py-4 bg-gray-50">MITTWOCH</h3>
+                    <div id="mittwoch-desktop" class="p-4 space-y-4">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+                <!-- Donnerstag Column -->
+                <div class="bg-white border-r border-gray-200">
+                    <h3 class="text-center font-display font-bold text-xl py-4 bg-gray-50">DONNERSTAG</h3>
+                    <div id="donnerstag-desktop" class="p-4 space-y-4">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+                <!-- Freitag Column -->
+                <div class="bg-white">
+                    <h3 class="text-center font-display font-bold text-xl py-4 bg-gray-50">FREITAG</h3>
+                    <div id="freitag-desktop" class="p-4 space-y-4">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile: Tabs View -->
+            <div class="lg:hidden">
+                <!-- Days Navigation -->
+                <div class="grid grid-cols-3 gap-2 mb-6 border-b border-gray-200 pb-4" id="day-tabs">
+                    <button onclick="switchDay('montag')" class="tab-btn active px-4 py-2 font-display text-sm uppercase tracking-wider border border-purple-600 bg-purple-600 text-white transition-all">
+                        Montag
+                    </button>
+                    <button onclick="switchDay('dienstag')" class="tab-btn px-4 py-2 font-display text-sm uppercase tracking-wider border border-gray-300 hover:border-black text-gray-500 hover:text-black transition-all">
+                        Dienstag
+                    </button>
+                    <button onclick="switchDay('mittwoch')" class="tab-btn px-4 py-2 font-display text-sm uppercase tracking-wider border border-gray-300 hover:border-black text-gray-500 hover:text-black transition-all">
+                        Mittwoch
+                    </button>
+                    <button onclick="switchDay('donnerstag')" class="tab-btn px-4 py-2 font-display text-sm uppercase tracking-wider border border-gray-300 hover:border-black text-gray-500 hover:text-black transition-all col-span-1">
+                        Donnerstag
+                    </button>
+                    <button onclick="switchDay('freitag')" class="tab-btn px-4 py-2 font-display text-sm uppercase tracking-wider border border-gray-300 hover:border-black text-gray-500 hover:text-black transition-all col-span-2">
+                        Freitag
+                    </button>
+                </div>
+
+                <!-- Mobile Schedule Container -->
+                <div id="schedule-container-mobile" class="space-y-4">
+                    <!-- Content injected via JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="preise" class="relative py-32 overflow-hidden bg-gray-50">
+        <!-- Background Image of the Guy -->
+        <div class="absolute inset-0 z-0">
+            <img src="img/nenoundjenny.png" alt="Background" class="w-full h-full object-cover object-right md:object-right opacity-30 md:opacity-20">
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Text Content Left -->
+                <div class="slide-in-left">
+                    <h2 class="text-6xl md:text-8xl font-display font-bold italic mb-6 leading-none">
+                        <span class="text-gray-800">INVEST IN</span><br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">YOURSELF</span>
+                    </h2>
+                    <p class="text-gray-700 text-lg mb-8 max-w-md">
+                        Flexible Preise für jeden Lifestyle. Egal ob du einmal die Woche kommst oder jeden Tag trainierst.
+                    </p>
+                    
+                    <div class="space-y-4 max-w-md">
+                        <!-- Pricing Item 1 -->
+                        <div class="bg-white border-l-4 border-purple-500 p-6 hover:shadow-xl transition-all shadow-lg">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-2xl font-display font-bold uppercase text-gray-800">1 Kurs / Woche</h3>
+                                    <p class="text-xs text-gray-600 uppercase tracking-widest mt-1">Monatlich Kündbar</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-4xl font-display font-bold text-gray-800">38,00€</span>
+                                    <p class="text-xs text-gray-600">inkl. MwSt.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pricing Item 2 -->
+                        <div class="bg-gradient-to-r from-purple-600 to-pink-600 border-l-4 border-pink-500 p-6 transform scale-105 shadow-2xl relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-white text-purple-600 text-xs font-bold px-2 py-1">BELIEBT</div>
+                            <div class="flex justify-between items-start relative z-10">
+                                <div>
+                                    <h3 class="text-3xl font-display font-bold uppercase italic text-white">2 Kurse / Woche</h3>
+                                    <p class="text-xs text-white/90 uppercase tracking-widest mt-1">Doppelt hält besser</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-5xl font-display font-bold text-white">60,00€</span>
+                                    <p class="text-xs text-white/90">inkl. MwSt.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pricing Item 3 -->
+                        <div class="bg-white border-l-4 border-blue-500 p-6 hover:shadow-xl transition-all shadow-lg">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-2xl font-display font-bold uppercase text-gray-800">Minis</h3>
+                                    <p class="text-xs text-gray-600 uppercase tracking-widest mt-1">1x Woche (45min)</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-4xl font-display font-bold text-gray-800">33,00€</span>
+                                    <p class="text-xs text-gray-600">inkl. MwSt.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Pricing Item 4 -->
+                        <div class="bg-white border-2 border-purple-500 p-6 mt-4 hover:shadow-xl transition-all group shadow-lg">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="text-3xl font-display font-bold uppercase italic text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">ALL U CAN DANCE</h3>
+                                    <p class="text-xs text-gray-600 mt-1">Alle Kurse deiner Altersstufe</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-4xl font-display font-bold text-gray-800">80,00€</span>
+                                    <p class="text-xs text-gray-600">mtl. inkl. MwSt.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTA Button -->
+                    <div class="mt-8 max-w-md">
+                        <a href="kontakt.html" class="block w-full px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-display text-xl uppercase tracking-wider text-center hover:from-purple-700 hover:to-pink-700 transition-all shadow-xl">
+                            Kostenloses Probetraining
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right side decorative element -->
+                <div class="hidden lg:flex justify-end items-end h-full">
+                     <!-- Optional subtle decorative element -->
+                     <div class="bg-white p-6 border-2 border-purple-500 rounded-lg max-w-xs shadow-2xl">
+                        <div class="flex items-center gap-3 mb-2">
+                             <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                             <span class="font-display uppercase text-lg text-gray-800">Jetzt Anmelden</span>
+                        </div>
+                        <p class="text-sm text-gray-700 italic">"Das beste Investment ist das in dich selbst. Komm vorbei!"</p>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-5xl md:text-7xl font-display font-bold italic mb-12 text-black text-center fade-in">ÜBER <span class="text-purple-600">UNS</span></h2>
+
+                <div class="grid md:grid-cols-2 gap-12 items-center fade-in">
+                    <!-- Text Content -->
+                    <div class="space-y-6 text-gray-700 leading-relaxed">
+                        <p class="text-lg">
+                            Die <strong>NenoDance Academy</strong> in Heinsberg ist mehr als eine Tanzschule – sie ist ein Ort für Kreativität, Bildung und Gemeinschaft.
+                        </p>
+
+                        <p>
+                            Mit modernem Interieur, professionellem Tanzboden und einer 12-Meter-Spiegelwand schaffen wir eine inspirierende Umgebung für Tänzer jeden Niveaus. Unser erfahrenes Team begleitet dich mit Leidenschaft, Geduld und Motivation auf deinem Weg.
+                        </p>
+
+                        <p>
+                            Neben Tanzkursen bieten wir Workshops, Camps und Auftritte und fördern gezielt Jugendarbeit, Vielfalt und künstlerische Projekte. So entsteht eine Plattform, die Talente stärkt, Kulturen verbindet und die Tanzszene in der Region bereichert.
+                        </p>
+
+                        <p>
+                            Auch in Schulen und Kindergärten bringen wir Tanz als Teil einer ganzheitlichen Bildung ein – um Kreativität, kulturelles Verständnis und Selbstvertrauen zu fördern.
+                        </p>
+
+                        <p class="text-xl font-display font-bold text-purple-600 italic">
+                            NenoDance ist dein Treffpunkt für Tanz, Kultur und Gemeinschaft.
+                        </p>
+                    </div>
+
+                    <!-- Image -->
+                    <div class="relative">
+                        <div class="aspect-square rounded-lg overflow-hidden shadow-2xl">
+                            <img src="img/uber-uns.avif" alt="NenoDance Academy" class="w-full h-full object-cover">
+                        </div>
+                        <!-- Decorative Elements -->
+                        <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-purple-500 rounded-full blur-3xl opacity-30"></div>
+                        <div class="absolute -top-4 -left-4 w-32 h-32 bg-blue-500 rounded-full blur-3xl opacity-30"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-6">
+                <div class="text-center md:text-left">
+                    <a href="#" class="inline-block mb-4">
+                        <img src="img/logo.avif" alt="NenoDance Academy" class="h-16">
+                    </a>
+                    <p class="text-gray-500 text-sm">© 2025 NenoDance Academy. Stay Urban.</p>
+                </div>
+
+                <div class="flex gap-4">
+                    <a href="https://www.instagram.com/nenodance" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-purple-600 hover:text-white transition-colors text-gray-600">
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@nenodancefam" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-pink-600 hover:text-white transition-colors text-gray-600">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+                    </a>
+                    <a href="https://www.facebook.com/NenoDanceOfficial/?locale=de_DE" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-blue-600 hover:text-white transition-colors text-gray-600">
+                        <i data-lucide="facebook" class="w-5 h-5"></i>
+                    </a>
+                    <a href="mailto:info@nenodance.de" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-black hover:text-white transition-colors text-gray-600">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="text-center border-t border-gray-200 pt-6">
+                <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-600">
+                    <a href="impressum.html" class="hover:text-purple-600 transition-colors">Impressum</a>
+                    <span class="text-gray-300">|</span>
+                    <a href="datenschutz.html" class="hover:text-purple-600 transition-colors">Datenschutz</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Logic -->
+    <script src="js/main.js"></script>
+</body>
+</html>
